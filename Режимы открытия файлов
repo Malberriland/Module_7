@@ -1,0 +1,47 @@
+class Product:
+
+    def __init__(self, name, weight, category):
+        self.name = name
+        self.weight = weight
+        self.category = category
+
+    def __str__(self):
+        return ('{}, {}, {}'.format
+                (self.name, self.weight, self.category))
+
+
+class Shop:
+
+    def get_products(self):
+        __file_name = 'products.txt'
+        file = open(__file_name, 'r')
+        file_content = file.read()
+        file.close()
+        return file_content  # возврат единой строки со всеми товарами из файла txt
+
+    def add(self, *products):
+        product_file = self.get_products()
+        __file_name = 'products.txt'
+        if "Potato" not in product_file:
+            file = open(__file_name, 'a')
+            file.write(f'{products[0]}\n')
+            file.close()
+        else:
+            print('Продукт Potato уже есть в магазине')
+        if "Spaghetti" not in product_file:
+            file = open(__file_name, 'a')
+            file.write(f'{products[1]}\n')
+            file.close()
+        else:
+            print('Продукт Spaghetti уже есть в магазине')
+
+
+s1 = Shop()
+p1 = Product('Potato', 50.5, 'Vegetables')
+p2 = Product('Spaghetti', 3.4, 'Groceries')
+p3 = Product('Potato', 5.5, 'Vegetables')
+
+print(p2)
+
+s1.add(p1, p2, p3)
+print(s1.get_products())
