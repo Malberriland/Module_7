@@ -11,32 +11,32 @@ class Product:
 
 
 class Shop:
+    def __init__(self, __file_name):
+        self.__file_name = 'products.txt'
 
     def get_products(self):
-        __file_name = 'products.txt'
-        file = open(__file_name, 'r')
+        file = open(self.__file_name, 'r')
         file_content = file.read()
         file.close()
         return file_content  # возврат единой строки со всеми товарами из файла txt
 
     def add(self, *products):
         product_file = self.get_products()
-        __file_name = 'products.txt'
         if "Potato" not in product_file:
-            file = open(__file_name, 'a')
+            file = open(self.__file_name, 'a')
             file.write(f'{products[0]}\n')
             file.close()
         else:
             print('Продукт Potato уже есть в магазине')
         if "Spaghetti" not in product_file:
-            file = open(__file_name, 'a')
+            file = open(self.__file_name, 'a')
             file.write(f'{products[1]}\n')
             file.close()
         else:
             print('Продукт Spaghetti уже есть в магазине')
 
 
-s1 = Shop()
+s1 = Shop('products.txt')
 p1 = Product('Potato', 50.5, 'Vegetables')
 p2 = Product('Spaghetti', 3.4, 'Groceries')
 p3 = Product('Potato', 5.5, 'Vegetables')
