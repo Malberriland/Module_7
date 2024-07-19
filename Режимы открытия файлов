@@ -18,22 +18,19 @@ class Shop:
         file = open(self.__file_name, 'r')
         file_content = file.read()
         file.close()
-        return file_content  # возврат единой строки со всеми товарами из файла txt
+        return file_content
 
     def add(self, *products):
         product_file = self.get_products()
-        if "Potato" not in product_file:
-            file = open(self.__file_name, 'a')
-            file.write(f'{products[0]}\n')
-            file.close()
-        else:
-            print('Продукт Potato уже есть в магазине')
-        if "Spaghetti" not in product_file:
-            file = open(self.__file_name, 'a')
-            file.write(f'{products[1]}\n')
-            file.close()
-        else:
-            print('Продукт Spaghetti уже есть в магазине')
+        existing_products = product_file.split('\n')
+        for product in products:
+            product_name = product.name
+            if any(product_name in line for line in existing_products):
+                print(f'Продукт {product_name} уже есть в магазине')
+            else:
+                file = open(self.__file_name, 'a')
+                file.write(f'{products}\n')
+                file.close()
 
 
 s1 = Shop('products.txt')
