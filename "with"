@@ -1,0 +1,57 @@
+class WordsFinder:
+    def __init__(self, *args):
+        self.file_names = list(args)
+
+    def get_all_words(self):
+        name = self.file_names
+        all_words = {}
+        a = 0
+        for i in name:
+            with open(name[a], encoding='utf-8') as file:
+                text = file.read()
+                text_lower = text.lower()
+                text_list = text_lower.split()
+                text_str = ' '.join(text_list)
+                punctuation = [',', '.', '=', '!', '?', ';', ':', ' - ']
+                for p in punctuation:
+                    if p in text_str:
+                        text_str = text_str.replace(p, '')
+                text_list_2 = text_str.split()
+                all_words[i] = text_list_2
+                a += 1
+        return all_words
+
+    def find(self, word):
+        d_1 = {}
+        line = 0
+        for name, words in self.get_all_words().items():
+            with (open(name, encoding='utf-8')):
+                for j in words:
+                    line += 1
+                    word_l = word.lower()
+                    if word_l in j:
+                        d_1[name] = line
+                        break
+                line = 0
+        return d_1
+
+    def count(self, word):
+        d_2 = {}
+        count = 0
+        for name, words in self.get_all_words().items():
+            with (open(name, encoding='utf-8')):
+                word_l = word.lower()
+                if word_l in words:
+                    for j in words:
+                        word_l = word.lower()
+                        if word_l in j:
+                            count += 1
+                    d_2[name] = count
+        return d_2
+
+
+finder2 = WordsFinder('test_file.txt')
+
+print(finder2.get_all_words())  # Все слова
+print(finder2.find('TEXT'))  # 3 слово по счёту
+print(finder2.count('teXT'))  # 4 слова teXT в тексте всего
